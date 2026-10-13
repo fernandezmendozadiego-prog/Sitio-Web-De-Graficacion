@@ -14,7 +14,7 @@ Tener WINRAR instalado
 
 4.Abrir la carpeta en phoenix code que se ubica en descargas
 <img width="120" height="91" alt="image" src="https://github.com/user-attachments/assets/e6cad4b9-a126-44cd-89a4-2e1bb4b6be18" />
-<img src="./imagenes/Screenshot 2026-10-13 130024.png" alt="Captura de pantalla" width="600">
+
 
 5.Hacer click en la carpeta index y luego en la prevista de la ventana
 <img width="262" height="130" alt="image" src="https://github.com/user-attachments/assets/41eb636b-9251-4cde-bec2-b5d0d6e63724" />
