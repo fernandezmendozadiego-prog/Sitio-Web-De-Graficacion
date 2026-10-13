@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Día nevado soleado | Graficación</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="index.html">← Volver al menú principal</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>4. Día nevado soleado 🌨️</h1>
+    <p class="instrucciones">El sol crece poco a poco mientras cae la nieve.
+       Haz clic sobre el dibujo para reiniciar el sol.</p>
+
+    <div id="lienzo" class="lienzo"></div>
+
+    <p>Conceptos usados: <strong>animación</strong> en <code>draw()</code> aumentando
+       <code>tamanoSol</code> en cada cuadro, un arreglo de <strong>objetos</strong> para la nieve,
+       <code>random()</code>, <code>lerpColor()</code> y <code>rotate()</code> para los rayos.</p>
+
+    <div class="centrado">
+      <a class="boton" href="index.html">← Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="js/dibujos/dia-nevado.js"></script>
+  <script>
+    new p5(window.dibujos.nevado, "lienzo");
+  </script>
+</body>
+</html>

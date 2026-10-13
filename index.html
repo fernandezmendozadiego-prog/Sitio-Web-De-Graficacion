@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graficación | Despliegue de gráficos</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ================= ENCABEZADO ================= -->
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="#teoria">Ir a la teoría ↓</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Despliegue de gráficos</h1>
+    <p>Proyectos de dibujo desarrollados en Khan Academy, adaptados a código web
+       estándar con HTML, CSS, JavaScript y la librería p5.js.</p>
+  </div>
+
+  <main class="contenedor">
+
+    <!-- ================= MENÚ PRINCIPAL: VISTAS PREVIAS ================= -->
+    <section id="menu-principal">
+      <h2>Menú principal</h2>
+      <p>Haz clic en una imagen para abrir el dibujo. Todos son interactivos.</p>
+
+      <div class="galeria">
+        <a class="tarjeta" href="rana.html">
+          <img src="img/rana.png" alt="Vista previa del dibujo de la rana">
+          <div class="info"><h3>1. Rana</h3><p>Sigue al mouse con la mirada y saca la lengua.</p></div>
+        </a>
+        <a class="tarjeta" href="dientes-conejo.html">
+          <img src="img/dientes-conejo.png" alt="Vista previa del dibujo del conejo">
+          <div class="info"><h3>2. Dientes de conejo</h3><p>Cambia el tamaño de los dientes con una variable.</p></div>
+        </a>
+        <a class="tarjeta" href="cena.html">
+          <img src="img/cena.png" alt="Vista previa del dibujo ¿Qué hay de cena?">
+          <div class="info"><h3>3. ¿Qué hay de cena?</h3><p>Haz clic para cambiar el platillo.</p></div>
+        </a>
+        <a class="tarjeta" href="dia-nevado.html">
+          <img src="img/dia-nevado.png" alt="Vista previa del día nevado soleado">
+          <div class="info"><h3>4. Día nevado soleado</h3><p>El sol crece mientras cae la nieve.</p></div>
+        </a>
+        <a class="tarjeta" href="muneco-nieve.html">
+          <img src="img/muneco-nieve.png" alt="Vista previa del muñeco de nieve">
+          <div class="info"><h3>5. Muñeco de nieve</h3><p>Saluda con el brazo y cambia de bufanda.</p></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ================= TEORÍA ================= -->
+    <section id="teoria">
+      <h2 class="titulo-teoria">Sección informativa</h2>
+      <p>En Khan Academy dibujamos usando <strong>ProcessingJS</strong> dentro de un simulador.
+         Para llevar esos dibujos a una página web real necesitamos entender dos cosas:
+         la etiqueta HTML <code>&lt;canvas&gt;</code> y la librería <strong>p5.js</strong>.</p>
+
+      <div class="seccion">
+        <h2>1. La etiqueta HTML &lt;canvas&gt;</h2>
+        <p>La etiqueta <code>&lt;canvas&gt;</code> (lienzo) es un elemento de HTML5 que crea un área
+           rectangular en la página donde se puede <strong>dibujar con JavaScript</strong>, píxel por píxel.
+           Por sí sola es solo un rectángulo vacío y transparente; todo el dibujo se hace desde código.</p>
+
+        <pre><code>&lt;canvas id="miCanvas" width="400" height="300"&gt;
+  Tu navegador no soporta canvas.
+&lt;/canvas&gt;</code></pre>
+
+        <ul>
+          <li><code>width</code> y <code>height</code> definen el tamaño real en píxeles (por defecto 300 × 150).</li>
+          <li>El texto dentro de la etiqueta solo aparece si el navegador no soporta canvas.</li>
+          <li>El sistema de coordenadas empieza en la <strong>esquina superior izquierda (0, 0)</strong>:
+              la <em>x</em> crece hacia la derecha y la <em>y</em> crece hacia abajo, igual que en Khan Academy.</li>
+        </ul>
+
+        <h3>Contexto de renderizado 2D</h3>
+        <p>Para dibujar hay que pedirle al canvas un <strong>contexto de renderizado</strong>, que es el objeto
+           que contiene todas las funciones de dibujo. Para gráficos planos se usa el contexto
+           <code>"2d"</code> (también existen <code>"webgl"</code> y <code>"webgl2"</code> para 3D).</p>
+
+        <pre><code>const canvas = document.getElementById("miCanvas");
+const ctx = canvas.getContext("2d");   // obtenemos el contexto 2D
+
+ctx.fillStyle = "skyblue";             // color de relleno
+ctx.fillRect(0, 0, 400, 300);          // rectángulo de fondo
+
+ctx.beginPath();                       // iniciamos una figura
+ctx.arc(200, 150, 60, 0, Math.PI * 2); // círculo: x, y, radio, ángulo inicio, ángulo fin
+ctx.fillStyle = "gold";
+ctx.fill();                            // rellenamos
+ctx.lineWidth = 4;
+ctx.strokeStyle = "orange";
+ctx.stroke();                          // dibujamos el borde
+
+ctx.font = "20px Arial";
+ctx.fillStyle = "black";
+ctx.fillText("Hola canvas", 140, 260); // texto</code></pre>
+
+        <p>Resultado de ese código (dibujado con canvas nativo, sin librerías):</p>
+        <canvas id="demoCanvas" width="400" height="300">Tu navegador no soporta canvas.</canvas>
+
+        <h3>Métodos principales del contexto 2D</h3>
+        <div class="tabla-scroll">
+          <table>
+            <tr><th>Método / propiedad</th><th>Para qué sirve</th></tr>
+            <tr><td><code>fillStyle</code>, <code>strokeStyle</code></td><td>Color de relleno y de contorno.</td></tr>
+            <tr><td><code>lineWidth</code></td><td>Grosor de las líneas.</td></tr>
+            <tr><td><code>fillRect(x, y, w, h)</code></td><td>Dibuja un rectángulo relleno.</td></tr>
+            <tr><td><code>strokeRect(x, y, w, h)</code></td><td>Dibuja solo el contorno de un rectángulo.</td></tr>
+            <tr><td><code>clearRect(x, y, w, h)</code></td><td>Borra un área (útil en animaciones).</td></tr>
+            <tr><td><code>beginPath()</code>, <code>moveTo()</code>, <code>lineTo()</code></td><td>Crean trazos y figuras libres.</td></tr>
+            <tr><td><code>arc(x, y, r, inicio, fin)</code></td><td>Arcos y círculos (ángulos en radianes).</td></tr>
+            <tr><td><code>ellipse(x, y, rx, ry, rot, inicio, fin)</code></td><td>Elipses.</td></tr>
+            <tr><td><code>fill()</code>, <code>stroke()</code></td><td>Rellenan o delinean la figura actual.</td></tr>
+            <tr><td><code>fillText(texto, x, y)</code></td><td>Escribe texto.</td></tr>
+            <tr><td><code>save()</code>, <code>restore()</code>, <code>translate()</code>, <code>rotate()</code></td><td>Transformaciones (mover y girar el sistema de coordenadas).</td></tr>
+          </table>
+        </div>
+
+        <h3>¿Cómo se anima con canvas nativo?</h3>
+        <p>Se usa <code>requestAnimationFrame()</code>, que llama a una función unas 60 veces por segundo.
+           En cada llamada se borra el canvas y se dibuja todo de nuevo en su nueva posición.</p>
+        <pre><code>let x = 0;
+function animar() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(x, 100, 50, 50);
+  x = x + 2;
+  requestAnimationFrame(animar);
+}
+animar();</code></pre>
+      </div>
+
+      <div class="seccion">
+        <h2>2. Fundamentos de la librería p5.js</h2>
+        <p><strong>p5.js</strong> es una librería de JavaScript gratuita y de código abierto, basada en
+           <em>Processing</em>, creada para hacer dibujo, animación e interacción de forma sencilla.
+           Por dentro usa el mismo <code>&lt;canvas&gt;</code> y su contexto 2D, pero nos da funciones mucho
+           más cortas. Por eso es casi idéntica a lo que usamos en Khan Academy.</p>
+
+        <h3>Cómo se agrega a una página</h3>
+        <pre><code>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/mi-dibujo.js"&gt;&lt;/script&gt;</code></pre>
+
+        <h3>Estructura básica: setup() y draw()</h3>
+        <pre><code>function setup() {
+  // Se ejecuta UNA sola vez al inicio
+  createCanvas(400, 400);   // crea el &lt;canvas&gt; automáticamente
+}
+
+function draw() {
+  // Se repite unas 60 veces por segundo (animación)
+  background(220);
+  fill(255, 0, 0);
+  ellipse(mouseX, mouseY, 50, 50);  // círculo que sigue al mouse
+}</code></pre>
+
+        <h3>Modo global y modo instancia</h3>
+        <p>El ejemplo anterior usa el <strong>modo global</strong>: las funciones de p5 quedan sueltas
+           y solo cabe un dibujo por página. En este sitio usamos el <strong>modo instancia</strong>:
+           cada dibujo es una función que recibe un objeto <code>p</code> y todas las funciones de p5
+           se escriben con <code>p.</code> al inicio. Así cada dibujo queda ordenado en su propio archivo
+           y se puede colocar dentro del elemento HTML que nosotros elijamos.</p>
+        <pre><code>const miDibujo = function (p) {
+  p.setup = function () {
+    p.createCanvas(400, 400);
+  };
+  p.draw = function () {
+    p.background(220);
+    p.ellipse(p.mouseX, p.mouseY, 50, 50);
+  };
+};
+
+// Crea el dibujo dentro del elemento con id="lienzo"
+new p5(miDibujo, "lienzo");</code></pre>
+
+        <h3>Funciones de dibujo más usadas</h3>
+        <div class="tabla-scroll">
+          <table>
+            <tr><th>Función</th><th>Descripción</th></tr>
+            <tr><td><code>createCanvas(w, h)</code></td><td>Crea el lienzo.</td></tr>
+            <tr><td><code>background(r, g, b)</code></td><td>Pinta todo el fondo.</td></tr>
+            <tr><td><code>fill()</code>, <code>noFill()</code></td><td>Color de relleno / sin relleno.</td></tr>
+            <tr><td><code>stroke()</code>, <code>noStroke()</code>, <code>strokeWeight()</code></td><td>Color, ausencia y grosor del contorno.</td></tr>
+            <tr><td><code>rect(x, y, w, h)</code></td><td>Rectángulo.</td></tr>
+            <tr><td><code>ellipse(x, y, w, h)</code></td><td>Elipse o círculo.</td></tr>
+            <tr><td><code>line(x1, y1, x2, y2)</code></td><td>Línea.</td></tr>
+            <tr><td><code>triangle()</code>, <code>quad()</code>, <code>arc()</code></td><td>Triángulos, cuadriláteros y arcos.</td></tr>
+            <tr><td><code>text(texto, x, y)</code>, <code>textSize()</code></td><td>Texto y su tamaño.</td></tr>
+            <tr><td><code>push()</code>, <code>pop()</code>, <code>translate()</code>, <code>rotate()</code></td><td>Transformaciones.</td></tr>
+            <tr><td><code>random(min, max)</code>, <code>sin()</code>, <code>map()</code></td><td>Utilidades matemáticas.</td></tr>
+          </table>
+        </div>
+
+        <h3>Interactividad</h3>
+        <ul>
+          <li><code>mouseX</code>, <code>mouseY</code>: posición actual del mouse.</li>
+          <li><code>mouseIsPressed</code>: <code>true</code> mientras se mantiene presionado.</li>
+          <li><code>mousePressed()</code>, <code>mouseClicked()</code>, <code>keyPressed()</code>: se ejecutan con cada clic o tecla.</li>
+          <li><code>frameCount</code>: número de cuadros dibujados, útil para animar.</li>
+          <li><code>createSlider()</code>, <code>createButton()</code>: crean controles HTML desde p5.</li>
+        </ul>
+
+        <h3>De Khan Academy (ProcessingJS) a p5.js</h3>
+        <div class="tabla-scroll">
+          <table>
+            <tr><th>Khan Academy</th><th>p5.js</th></tr>
+            <tr><td>El lienzo ya existe (400 × 400)</td><td>Hay que llamar <code>createCanvas(400, 400)</code> en <code>setup()</code></td></tr>
+            <tr><td><code>var draw = function() { ... };</code></td><td><code>function draw() { ... }</code></td></tr>
+            <tr><td><code>var mouseClicked = function() { ... };</code></td><td><code>function mouseClicked() { ... }</code></td></tr>
+            <tr><td><code>mouseIsPressed</code></td><td><code>mouseIsPressed</code> (igual)</td></tr>
+            <tr><td><code>arc()</code> y <code>rotate()</code> en grados</td><td>En radianes, o usar <code>angleMode(DEGREES)</code></td></tr>
+            <tr><td><code>println()</code></td><td><code>print()</code> o <code>console.log()</code></td></tr>
+          </table>
+        </div>
+
+        <h3>Ventajas de p5.js frente al canvas nativo</h3>
+        <ul>
+          <li>Código más corto: <code>ellipse(200, 200, 50, 50)</code> en lugar de 4 líneas con <code>beginPath</code> y <code>arc</code>.</li>
+          <li>El ciclo de animación (<code>draw</code>) ya viene incluido.</li>
+          <li>Variables del mouse y teclado listas para usar.</li>
+          <li>Muy parecido a Processing, que es lo que aprendimos en Khan Academy.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="js/teoria.js"></script>
+</body>
+</html>
