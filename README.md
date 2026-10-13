@@ -6,6 +6,7 @@ Tener Phoenix Code Instalado
 Tener WINRAR instalado
 ## Pasos
 1.Descargar el archivo dando click en el boton verde code
+<img src="./imagenes/Screenshot 2026-10-13 130024.png" alt="Captura de pantalla" width="600">
 
 2.Abrir el archivo con WINRAR y descomprimir el archivo en carpeta y guardarlo en carpeta en descargas
 
