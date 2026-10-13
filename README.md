@@ -11,5 +11,4 @@ Tener WINRAR instalado
 <img src="./imagenes/Screenshot 2026-10-13 130024.png" alt="Captura de pantalla" width="600">
 
 3.Abrir Phoenix code y abrir la carpeta descomprimida 
-
-
+<img src="./imagenes/Screen Recording 2026-10-13 131504.mp4" alt="Captura de pantalla" width="600">
