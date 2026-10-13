@@ -1,0 +1,311 @@
+/* ===== Estilos del inspector del DOM ===== */
+
+/* Colores de cada tipo de nodo */
+:root {
+  --c-raiz: #1b2a49;
+  --c-head: #7a5af5;
+  --c-body: #3a6ea5;
+  --c-semantica: #e8743b;
+  --c-titulo: #d64161;
+  --c-texto: #2a9d8f;
+  --c-media: #e9b11c;
+  --c-otro: #8c99a6;
+  --linea: #9fb3c8;
+}
+
+/* Selector de páginas */
+.selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 12px;
+}
+
+.selector button,
+.barra button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--borde);
+  background: white;
+  color: var(--azul-oscuro);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.selector button small {
+  display: block;
+  font-size: 0.75rem;
+  color: #6b7a8c;
+}
+
+.selector button.activo,
+.barra button.activo {
+  background: var(--azul-oscuro);
+  border-color: var(--azul-oscuro);
+  color: white;
+}
+
+.selector button.activo small { color: #c9d6e6; }
+
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.barra .grupo { display: flex; gap: 6px; flex-wrap: wrap; }
+.barra button { padding: 6px 12px; font-size: 0.9rem; }
+
+/* Estadísticas */
+.estadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.dato {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.dato strong { display: block; font-size: 1.6rem; color: var(--azul-oscuro); line-height: 1.2; }
+.dato span { font-size: 0.85rem; color: #555; }
+
+/* Leyenda */
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+.leyenda i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+
+.n-raiz      { --c: var(--c-raiz); }
+.n-head      { --c: var(--c-head); }
+.n-body      { --c: var(--c-body); }
+.n-semantica { --c: var(--c-semantica); }
+.n-titulo    { --c: var(--c-titulo); }
+.n-texto     { --c: var(--c-texto); }
+.n-media     { --c: var(--c-media); }
+.n-otro      { --c: var(--c-otro); }
+.leyenda i   { background: var(--c); }
+
+.mas-ejemplo {
+  display: inline-block;
+  background: var(--azul);
+  color: white;
+  border-radius: 10px;
+  padding: 0 7px;
+  font-weight: 700;
+}
+
+/* Contenedor del árbol (con scroll si es muy ancho) */
+.lienzo-arbol {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 24px 12px;
+  overflow: auto;
+  max-height: 75vh;
+}
+
+.cargando { text-align: center; color: #666; margin: 40px 0; }
+.nota { font-size: 0.85rem; color: #666; margin-top: 8px; }
+
+/* El iframe que lee las otras páginas no se ve */
+iframe.lector {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 1000px;
+  height: 800px;
+  border: 0;
+}
+
+/* ===== Caja de cada nodo ===== */
+.nodo {
+  font: inherit;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  background: white;
+  border: 2px solid var(--c);
+  border-top-width: 6px;
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: default;
+  color: var(--texto);
+  white-space: nowrap;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(27, 42, 73, 0.08);
+}
+
+.nodo .etiqueta {
+  font-family: Consolas, "Courier New", monospace;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--c);
+}
+
+.n-raiz .etiqueta,
+.n-media .etiqueta { filter: brightness(0.8); }
+
+.nodo .detalle {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.7rem;
+  color: #6b7a8c;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nodo.omitido { border-style: dashed; }
+
+/* Contador de hijos (+N / −) */
+.nodo .mas {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  background: var(--c);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 0 6px;
+  line-height: 18px;
+}
+
+li:has(> ul) > .nodo { cursor: pointer; }
+li:has(> ul) > .nodo:hover { box-shadow: 0 0 0 3px rgba(58, 110, 165, 0.25); }
+
+#arbol li.cerrado > ul { display: none; }
+
+/* ===== VISTA ÁRBOL (de arriba hacia abajo) ===== */
+.arbol ul {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 22px 0 0;
+  margin: 0;
+  list-style: none;
+}
+
+.arbol > ul { padding-top: 0; width: max-content; min-width: 100%; }
+
+.arbol li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 6px 0;
+}
+
+/* Líneas horizontales hacia los hermanos */
+.arbol li::before,
+.arbol li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: 22px;
+  border-top: 2px solid var(--linea);
+}
+
+/* Línea vertical que baja a cada hijo */
+.arbol li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid var(--linea);
+}
+
+.arbol li:only-child::before,
+.arbol li:only-child::after { display: none; }
+.arbol li:only-child { padding-top: 0; }
+
+.arbol li:first-child::before,
+.arbol li:last-child::after { border: 0 none; }
+
+.arbol li:last-child::before {
+  border-right: 2px solid var(--linea);
+  border-radius: 0 6px 0 0;
+}
+
+.arbol li:first-child::after { border-radius: 6px 0 0 0; }
+
+/* Línea vertical que baja del padre */
+.arbol ul ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 22px;
+  border-left: 2px solid var(--linea);
+}
+
+.arbol > ul > li { padding-top: 0; }
+.arbol > ul > li::before,
+.arbol > ul > li::after { display: none; }
+
+/* ===== VISTA LISTA (indentada, cómoda en celular) ===== */
+.arbol.lista ul {
+  display: block;
+  padding: 0 0 0 26px;
+}
+
+.arbol.lista > ul { padding-left: 0; width: auto; }
+
+.arbol.lista li {
+  display: block;
+  padding: 6px 0 0 0;
+}
+
+.arbol.lista li::before {
+  display: block;
+  top: 0;
+  left: -16px;
+  right: auto;
+  width: 14px;
+  height: 22px;
+  border: 0;
+  border-left: 2px solid var(--linea);
+  border-bottom: 2px solid var(--linea);
+  border-radius: 0 0 0 6px;
+}
+
+.arbol.lista li::after {
+  display: block;
+  top: 22px;
+  left: -16px;
+  width: 0;
+  height: calc(100% - 22px);
+  border: 0;
+  border-left: 2px solid var(--linea);
+  border-radius: 0;
+}
+
+.arbol.lista li:last-child::after { display: none; }
+.arbol.lista li:first-child::before { border-left: 2px solid var(--linea); border-bottom: 2px solid var(--linea); }
+.arbol.lista li:only-child::before { display: block; }
+.arbol.lista ul ul::before { display: none; }
+.arbol.lista > ul > li:only-child::before,
+.arbol.lista > ul > li:only-child::after { display: none; }
+
+.arbol.lista .nodo {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+  border-top-width: 2px;
+  border-left-width: 6px;
+}
+
+.arbol.lista .nodo .mas { position: static; margin-left: 4px; }
