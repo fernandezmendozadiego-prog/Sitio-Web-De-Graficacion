@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rana | Graficación</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="index.html">← Volver al menú principal</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>1. Rana 🐸</h1>
+    <p class="instrucciones">Mueve el mouse: la rana te sigue con la mirada.
+       Mantén presionado el clic sobre el dibujo para que saque la lengua.</p>
+
+    <div id="lienzo" class="lienzo"></div>
+
+    <p>Conceptos usados: <code>ellipse()</code>, <code>arc()</code>, <code>line()</code>,
+       <code>mouseIsPressed</code>, <code>atan2()</code> para que las pupilas apunten al mouse
+       y <code>sin(frameCount)</code> para animar la respiración y la mosca.</p>
+
+    <div class="centrado">
+      <a class="boton" href="index.html">← Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="js/dibujos/rana.js"></script>
+  <script>
+    new p5(window.dibujos.rana, "lienzo");
+  </script>
+</body>
+</html>

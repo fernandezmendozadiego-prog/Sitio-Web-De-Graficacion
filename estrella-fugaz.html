@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estrella fugaz | Graficación</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="index.html">← Volver al menú principal</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>8. Estrella fugaz 🌠</h1>
+    <p class="instrucciones">Dos estrellas fugaces cruzan el cielo nocturno dejando una estela. Cuando salen de la pantalla se lanzan otra vez. Haz clic sobre el dibujo para lanzarlas cuando quieras.</p>
+
+    <div id="lienzo" class="lienzo"></div>
+
+    <p>Conceptos usados: <strong>movimiento en diagonal</strong> sumando y restando a <code>xpos</code>, <code>ypos</code>, <code>xpos2</code> y <code>ypos2</code> (como en Khan Academy). Mejoras: la <strong>estela</strong> se hace guardando las últimas 25 posiciones en un <strong>arreglo</strong> con <code>push()</code> y <code>shift()</code>, y uniéndolas con líneas cada vez más delgadas y transparentes; las estrellas del fondo <strong>titilan</strong> con <code>sin(frameCount)</code>, y las montañas se dibujan al final para que las estrellas pasen detrás.</p>
+
+    <div class="centrado">
+      <a class="boton" href="index.html">← Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="js/dibujos/estrella-fugaz.js"></script>
+  <script>
+    new p5(window.dibujos.estrella, "lienzo");
+  </script>
+</body>
+</html>

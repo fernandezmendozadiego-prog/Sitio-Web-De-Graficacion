@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué hay de cena? | Graficación</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="index.html">← Volver al menú principal</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>3. ¿Qué hay de cena? 🍽️</h1>
+    <p class="instrucciones">Haz clic sobre el dibujo para cambiar el platillo.</p>
+
+    <div id="lienzo" class="lienzo"></div>
+
+    <p>Conceptos usados: <code>text()</code> y <code>textSize()</code>, un <strong>arreglo</strong>
+       con los platillos, <strong>ciclos for</strong> anidados para el mantel,
+       <strong>funciones</strong> propias para cada comida y <code>mouseClicked()</code>.</p>
+
+    <div class="centrado">
+      <a class="boton" href="index.html">← Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="js/dibujos/cena.js"></script>
+  <script>
+    new p5(window.dibujos.cena, "lienzo");
+  </script>
+</body>
+</html>

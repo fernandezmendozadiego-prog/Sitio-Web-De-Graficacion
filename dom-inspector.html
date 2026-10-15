@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspector del DOM | Graficación</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dom-inspector.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="index.html">← Volver al menú principal</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>Inspector del árbol DOM 🌳</h1>
+    <p>El <strong>DOM</strong> (<em>Document Object Model</em>) es la forma en que el navegador
+       organiza una página HTML: cada etiqueta se convierte en un <strong>nodo</strong> y los nodos
+       forman un <strong>árbol</strong>. La raíz es <code>&lt;html&gt;</code>, que tiene dos hijos,
+       <code>&lt;head&gt;</code> y <code>&lt;body&gt;</code>, y de ahí se ramifican los demás elementos.</p>
+    <p>Elige una página del sitio para ver su árbol. Haz clic en un nodo que tenga
+       <span class="mas-ejemplo">+</span> para abrir o cerrar sus hijos.</p>
+
+    <!-- Selector de página -->
+    <div class="selector" id="selector" role="tablist"></div>
+
+    <!-- Controles -->
+    <div class="barra">
+      <div class="grupo">
+        <button type="button" id="btnExpandir">Expandir todo</button>
+        <button type="button" id="btnContraer">Contraer todo</button>
+      </div>
+      <div class="grupo">
+        <button type="button" id="btnVistaArbol" class="activo">Vista árbol</button>
+        <button type="button" id="btnVistaLista">Vista lista</button>
+      </div>
+    </div>
+
+    <!-- Datos de la página elegida -->
+    <div class="estadisticas" id="estadisticas"></div>
+
+    <!-- Leyenda de colores -->
+    <div class="leyenda">
+      <span><i class="n-raiz"></i>Raíz &lt;html&gt;</span>
+      <span><i class="n-head"></i>&lt;head&gt; y metadatos</span>
+      <span><i class="n-body"></i>&lt;body&gt;</span>
+      <span><i class="n-semantica"></i>Contenedores semánticos</span>
+      <span><i class="n-titulo"></i>Títulos h1–h6</span>
+      <span><i class="n-texto"></i>Texto y listas</span>
+      <span><i class="n-media"></i>Canvas, imágenes y controles</span>
+      <span><i class="n-otro"></i>Otros (div, script…)</span>
+    </div>
+
+    <!-- Aquí se dibuja el árbol -->
+    <div class="lienzo-arbol" id="contenedorArbol">
+      <div id="arbol" class="arbol"></div>
+    </div>
+    <p class="nota" id="nota"></p>
+
+    <div class="centrado">
+      <a class="boton" href="index.html">← Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="js/dom-datos.js"></script>
+  <script src="js/dom-inspector.js"></script>
+</body>
+</html>

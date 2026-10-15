@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El sol que explota | Graficación</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="index.html">← Volver al menú principal</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>6. El sol que explota ☀️</h1>
+    <p class="instrucciones">El sol aparece pequeño en el horizonte, crece hasta llenar el cielo y… ¡explota en un destello! Después vuelve a empezar. Haz clic sobre el dibujo para reiniciarlo.</p>
+
+    <div id="lienzo" class="lienzo"></div>
+
+    <p>Conceptos usados: la <strong>variable</strong> <code>sunSize</code> que aumenta en 1 en cada cuadro (como en Khan Academy) y el <strong>orden de dibujo</strong>: el pasto se dibuja después del sol para tapar su mitad. Mejoras: cielo en <strong>degradado</strong> con <code>lerpColor()</code> que pasa del amanecer al día, resplandor y rayos que giran con <code>rotate()</code>, nubes y pájaros guardados en <strong>arreglos de objetos</strong>, y un <code>if</code> que provoca la explosión cuando <code>sunSize</code> pasa de 560.</p>
+
+    <div class="centrado">
+      <a class="boton" href="index.html">← Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="js/dibujos/sol-explota.js"></script>
+  <script>
+    new p5(window.dibujos.solExplota, "lienzo");
+  </script>
+</body>
+</html>

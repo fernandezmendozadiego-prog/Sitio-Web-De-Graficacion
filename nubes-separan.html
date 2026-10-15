@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nubes que se separan | Graficación</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="logo" href="index.html">Grafi<span>cación</span></a>
+      <a class="boton-volver" href="index.html">← Volver al menú principal</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>7. Nubes que se separan ☁️</h1>
+    <p class="instrucciones">Las nubes se separan, el sol sonriente crece detrás de ellas y aparece un arcoíris. Cuando las nubes salen de la pantalla vuelve a empezar. Haz clic sobre el dibujo para reiniciarlo.</p>
+
+    <div id="lienzo" class="lienzo"></div>
+
+    <p>Conceptos usados: las <strong>variables</strong> <code>leftX</code>, <code>rightX</code> y <code>sunRadius</code> con <code>-=</code> y <code>+=</code> (como en Khan Academy), y nubes formadas por tres <code>ellipse()</code> que dependen de la misma variable. Mejoras: la cara del sol se escala con <code>sunRadius</code>, la <strong>opacidad</strong> del arcoíris depende de la distancia entre nubes usando <code>map()</code>, sombras dibujando la nube dos veces, y un <strong>arreglo de colores</strong> para los arcos del arcoíris.</p>
+
+    <div class="centrado">
+      <a class="boton" href="index.html">← Volver al menú principal</a>
+    </div>
+  </main>
+
+  <footer>Graficación · 5SA · 2026</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="js/dibujos/nubes-separan.js"></script>
+  <script>
+    new p5(window.dibujos.nubes, "lienzo");
+  </script>
+</body>
+</html>
